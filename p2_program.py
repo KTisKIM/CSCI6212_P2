@@ -18,8 +18,8 @@ Algorithm MergeSequence (Input: Array L[1..n], L[i] is the size of the i-th list
             // log(n) time for one insert operation
 """
 
-# import heapq as heapify, heappop
-import heapq
+# import heapq
+from heapq import heapify, heappop, heappush
 import time
 
 # Finds the merge sequence, given an array
@@ -27,29 +27,28 @@ import time
 def merge_sequence(nums_array):
     start = time.perf_counter_ns()      ### Start time ###
 
+    total_cost = 0
+
+    # print('---previous heapify', nums_array)
     # Build the original heap
-    print('---previous heapify', nums_array)
-    heapq.heapify(nums_array)
-    print('---after heapify', nums_array)
+    heapify(nums_array)
+    # print('---after heapify', nums_array)
     for i in range(1, len(nums_array)):
         # Remove two smallest elements from the heap - 2 log (n) time for two delete operations
-        first_smallest = heapq.heappop(nums_array)
-        second_smallest = heapq.heappop(nums_array)
-        print("---first:", first_smallest, "second:", second_smallest)
-        print('---after pop', nums_array)
+        first_smallest = heappop(nums_array)
+        second_smallest = heappop(nums_array)
+        # print("---first:", first_smallest, "second:", second_smallest)
+        # print('---after pop', nums_array)
         # Add a new element corresponding to the merged list - log(n) time for one insert operation
-        heapq.heappush(nums_array, first_smallest + second_smallest)
-        print('---after push', nums_array)
+        heappush(nums_array, first_smallest + second_smallest)
+        # print('---after push', nums_array)
+        total_cost += first_smallest + second_smallest
 
     end = time.perf_counter_ns()        ### End time ###
-
-    print(f"{end - start} nanoseconds")  # Experimental result
-
-    return nums_array
+    print(f"{end - start} nanoseconds") ### Experimental result ###
 
 
 if __name__ == "__main__":
-    n = #
     a = [4, 8, 1, 3, 5]  # array of numbers
 
     merge_sequence(a)
